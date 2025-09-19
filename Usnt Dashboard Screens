@@ -1,0 +1,165 @@
+// مشروع React: USNT Dashboard - خمس شاشات
+
+// هيكلية المشروع:
+// src/
+// ├── App.jsx
+// ├── index.js
+// ├── components/
+// │   ├── Dashboard.jsx
+// │   ├── Transfer.jsx
+// │   ├── Buy.jsx
+// │   ├── NFTs.jsx
+// │   └── Settings.jsx
+// └── styles/
+//     └── App.css
+
+// ---------- index.js ----------
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+
+
+// ---------- App.jsx ----------
+import React, { useState } from 'react';
+import Dashboard from './components/Dashboard';
+import Transfer from './components/Transfer';
+import Buy from './components/Buy';
+import NFTs from './components/NFTs';
+import Settings from './components/Settings';
+
+function App() {
+  const [screen, setScreen] = useState('dashboard');
+
+  const renderScreen = () => {
+    switch(screen) {
+      case 'dashboard': return <Dashboard />;
+      case 'transfer': return <Transfer />;
+      case 'buy': return <Buy />;
+      case 'nfts': return <NFTs />;
+      case 'settings': return <Settings />;
+      default: return <Dashboard />;
+    }
+  };
+
+  return (
+    <div className="App">
+      <nav>
+        <button onClick={() => setScreen('dashboard')}>Dashboard</button>
+        <button onClick={() => setScreen('transfer')}>Transfer</button>
+        <button onClick={() => setScreen('buy')}>Buy</button>
+        <button onClick={() => setScreen('nfts')}>NFTs</button>
+        <button onClick={() => setScreen('settings')}>Settings</button>
+      </nav>
+      {renderScreen()}
+    </div>
+  );
+}
+
+export default App;
+
+
+// ---------- components/Dashboard.jsx ----------
+import React from 'react';
+
+function Dashboard() {
+  return (
+    <div>
+      <h2>USNT Dashboard</h2>
+      <p>رصيد USNT: 0</p>
+      <p>رصيد NWTK: 0</p>
+      <p>سعر BNB الحالي: 900$</p>
+      <button>تحويل</button>
+      <button>شراء</button>
+      <button>عرض NFTs</button>
+    </div>
+  );
+}
+
+export default Dashboard;
+
+
+// ---------- components/Transfer.jsx ----------
+import React, { useState } from 'react';
+
+function Transfer() {
+  const [address, setAddress] = useState('');
+  const [amount, setAmount] = useState('');
+
+  const handleTransfer = () => {
+    alert(`محاولة تحويل ${amount} USNT إلى ${address}`);
+    // هنا سيتم ربط الدالة transfer() من العقد الذكي لاحقًا
+  };
+
+  return (
+    <div>
+      <h2>تحويل USNT</h2>
+      <input placeholder="أدخل العنوان" value={address} onChange={e => setAddress(e.target.value)} />
+      <input placeholder="المبلغ" value={amount} onChange={e => setAmount(e.target.value)} />
+      <button onClick={handleTransfer}>تأكيد التحويل</button>
+    </div>
+  );
+}
+
+export default Transfer;
+
+
+// ---------- components/Buy.jsx ----------
+import React, { useState } from 'react';
+
+function Buy() {
+  const [currency, setCurrency] = useState('BNB');
+  const [amount, setAmount] = useState('');
+
+  const handleBuy = () => {
+    alert(`شراء USNT باستخدام ${amount} ${currency}`);
+    // هنا سيتم ربط Swap API لاحقًا
+  };
+
+  return (
+    <div>
+      <h2>شراء USNT</h2>
+      <select value={currency} onChange={e => setCurrency(e.target.value)}>
+        <option value="BNB">BNB</option>
+        <option value="USDT">USDT</option>
+      </select>
+      <input placeholder="المبلغ" value={amount} onChange={e => setAmount(e.target.value)} />
+      <button onClick={handleBuy}>تأكيد الشراء</button>
+    </div>
+  );
+}
+
+export default Buy;
+
+
+// ---------- components/NFTs.jsx ----------
+import React from 'react';
+
+function NFTs() {
+  return (
+    <div>
+      <h2>NFTs التراث الرقمي</h2>
+      <p>قائمة NFTs ستظهر هنا</p>
+      <button>شراء NFT</button>
+    </div>
+  );
+}
+
+export default NFTs;
+
+
+// ---------- components/Settings.jsx ----------
+import React from 'react';
+
+function Settings() {
+  return (
+    <div>
+      <h2>إعدادات المحفظة</h2>
+      <button>ربط / فصل المحفظة</button>
+      <button>خيارات الأمان</button>
+    </div>
+  );
+}
+
+export default Settings;

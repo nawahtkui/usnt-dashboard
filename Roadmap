@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USNT - خارطة الطريق</title>
+    <meta name="description" content="USNT - Universal Sovereign Nations Token. خارطة الطريق للمشروع: المراحل التقنية، إطلاق TestNet وMainNet، NFT، Staking، والتوسع العالمي.">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: #0d0d0d;
+            color: #f5f5f5;
+        }
+        header {
+            background: linear-gradient(90deg, #bfa64b, #e0c16c);
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background: #bfa64b;
+            color: #000;
+        }
+        .roadmap-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .phase {
+            border-left: 4px solid #ffd700;
+            padding: 20px 20px 20px 30px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .phase::before {
+            content: "";
+            position: absolute;
+            left: -10px;
+            top: 20px;
+            width: 15px;
+            height: 15px;
+            background: #bfa64b;
+            border-radius: 50%;
+        }
+        .phase h3 {
+            margin: 0 0 10px 0;
+            color: #ffd700;
+        }
+        .phase p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #111;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>USNT - خارطة الطريق</h1>
+</header>
+
+<nav>
+    <a href="index.html">الصفحة الرئيسية</a>
+    <a href="technical.html">المواصفات التقنية</a>
+    <a href="brand-values.html">القيم الرمزية</a>
+    <a href="nft.html">NFT / الفن الرقمي</a>
+</nav>
+
+<div class="roadmap-container">
+    <div class="phase">
+        <h3>المرحلة 1: التحضير والإطلاق التجريبي</h3>
+        <p>إعداد شبكة Algorand TestNet، إنشاء أول NFT، وضبط العقود الذكية الأساسية.</p>
+    </div>
+    <div class="phase">
+        <h3>المرحلة 2: الإطلاق الرسمي MainNet</h3>
+        <p>نشر USNT على MainNet، تمكين المحفظة متعددة التوقيع Multi-Sig، وتجهيز Staking / Rewards.</p>
+    </div>
+    <div class="phase">
+        <h3>المرحلة 3: دعم NFT والفن الرقمي</h3>
+        <p>دمج مجموعات NFT جديدة، عرض المعروضات على الموقع، وتمكين شراء NFT بواسطة USNT.</p>
+    </div>
+    <div class="phase">
+        <h3>المرحلة 4: التكامل مع التطبيقات DeFi</h3>
+        <p>ربط USNT بمنصات DeFi لدعم الإقراض والاقتراض، وزيادة الاستخدام العملي للعملة.</p>
+    </div>
+    <div class="phase">
+        <h3>المرحلة 5: التوسع العالمي والشراكات</h3>
+        <p>الشراكات مع مؤسسات عالمية، التركيز على التوسع الرقمي والتقارب الثقافي بين الشعوب.</p>
+    </div>
+    <div class="phase">
+        <h3>المرحلة 6: التحسينات والتحديثات المستمرة</h3>
+        <p>تطوير الخوارزميات، تعزيز الأمان، تحديث العقود الذكية، وتوسيع المميزات التقنية للمشروع.</p>
+    </div>
+</div>
+
+<footer>
+    &copy; 2025 Universal Sovereign Nations Token (USNT) - جميع الحقوق محفوظة
+</footer>
+
+</body>
+</html>

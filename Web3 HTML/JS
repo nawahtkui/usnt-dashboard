@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nawah Token Web3 Platform</title>
+<script src="https://cdn.jsdelivr.net/npm/web3@1.9.1/dist/web3.min.js"></script>
+<style>
+    body { font-family: Arial, sans-serif; background:#f0f4f8; margin:0; padding:0; color:#333; }
+    header { background:#004080; color:#fff; padding:1rem; text-align:center; }
+    nav { display:flex; justify-content:center; background:#0070c0; }
+    nav a { color:#fff; padding:0.8rem 1.2rem; text-decoration:none; font-weight:bold; }
+    nav a:hover { background:#0050a0; }
+    section { padding:2rem; max-width:1000px; margin:auto; }
+    h2 { color:#004080; }
+    .box { border:2px solid #0070c0; border-radius:10px; padding:1rem; margin-bottom:2rem; background:#fff; }
+    button { background:#004080; color:#fff; padding:0.5rem 1rem; border:none; border-radius:5px; cursor:pointer; margin:0.5rem 0; }
+    button:hover { background:#0060b0; }
+    .nft-item { display:inline-block; margin:0.5rem; border:1px solid #ccc; border-radius:5px; overflow:hidden; width:150px; text-align:center; }
+    .nft-item img { width:100%; height:auto; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>منصة Nawah Token Web3 (NWTK/USNT)</h1>
+    <p>تمكين المرأة والشباب من خلال الرموز الرقمية والفن والثقافة</p>
+</header>
+
+<nav>
+    <a href="#home">الرئيسية</a>
+    <a href="#wallet">Vault</a>
+    <a href="#minting">Minting</a>
+    <a href="#nft-gallery">NFT Gallery</a>
+    <a href="#games">الألعاب</a>
+</nav>
+
+<section id="home" class="box">
+    <h2>مرحبًا بكم في منصة Nawah Token Web3</h2>
+    <p>تجربة الرموز الرقمية USNT/NWTK، NFTs، والألعاب التفاعلية مباشرة على البلوكشين.</p>
+</section>
+
+<section id="wallet" class="box">
+    <h2>Vault</h2>
+    <p>عنوان محفظتك: <span id="account">غير متصل</span></p>
+    <p>رصيدك الحالي: <span id="balance">0</span> USNT</p>
+    <button onclick="connectWallet()">الاتصال بالمحفظة</button>
+</section>
+
+<section id="minting" class="box">
+    <h2>Minting</h2>
+    <button onclick="mintToken()">Mint 1 USNT</button>
+</section>
+
+<section id="nft-gallery" class="box">
+    <h2>NFT Gallery</h2>
+    <div id="nft-container"></div>
+    <button onclick="mintNFT()">Mint NFT جديد</button>
+</section>
+
+<section id="games" class="box">
+    <h2>الألعاب التفاعلية</h2>
+    <button onclick="playGame()">اللعب الآن</button>
+    <p id="game-result"></p>
+</section>
+
+<script>
+let web3;
+let userAccount;
+const tokenContractAddress = "0xYourTokenContractAddress"; // ضع هنا عنوان عقد USNT/NWTK
+const nftContractAddress = "0xYourNFTContractAddress"; // ضع هنا عنوان عقد NFT
+
+// ABI للعقد (مثال مبسط، يجب استبداله بـ ABI الحقيقي)
+const tokenABI = [{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"mint","outputs":[],"type":"function"}];
+const nftABI = [{"constant":false,"inputs":[],"name":"mintNFT","outputs":[],"type":"function"},{"constant":true,"inputs":[{"name":"owner","type":"address"}],"name":"tokensOfOwner","outputs":[{"name":"tokens","type":"uint256[]"}],"type":"function"}];
+
+let tokenContract, nftContract;
+
+async function connectWallet() {
+    if(window.ethereum){
+        try{
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            web3 = new Web3(window.ethereum);
+            const accounts = await web3.eth.getAccounts();
+            userAccount = accounts[0];
+            document.getElementById('account').innerText = userAccount;
+            tokenContract = new web3.eth.Contract(tokenABI, tokenContractAddress);
+            nftContract = new web3.eth.Contract(nftABI, nftContractAddress);
+            updateBalance();
+            renderNFTs();
+        }catch(err){ alert('خطأ في الاتصال بالمحفظة'); }
+    } else { alert('الرجاء تثبيت MetaMask'); }
+}
+
+async function updateBalance() {
+    if(!tokenContract || !userAccount) return;
+    const balance = await tokenContract.methods.balanceOf(userAccount).call();
+    document.getElementById('balance').innerText = web3.utils.fromWei(balance,'ether');
+}
+
+async function mintToken() {
+    if(!tokenContract || !userAccount){ alert('الرجاء الاتصال بالمحفظة أولاً'); return; }
+    try{
+        await tokenContract.methods.mint(userAccount, web3.utils.toWei('1','ether')).send({from:userAccount});
+        alert('تم Mint 1 USNT');
+        updateBalance();
+    }catch(err){ alert('خطأ في عملية Mint'); }
+}
+
+async function renderNFTs() {
+    if(!nftContract || !userAccount) return;
+    const container = document.getElementById('nft-container');
+    container.innerHTML = '';
+    // مثال: قم بجلب NFTs الحقيقية من العقد هنا
+    // const tokens = await nftContract.methods.tokensOfOwner(userAccount).call();
+    // tokens.forEach((t,i)=>{ ... });
+    // حالياً placeholder:
+    const nftCount = 3; // افتراضي
+    for(let i=0;i<nftCount;i++){
+        const div = document.createElement('div');
+        div.className='nft-item';
+        div.innerHTML=`<img src="https://via.placeholder.com/150?text=NFT+${i+1}" alt="NFT ${i+1}"><p>NFT ${i+1}</p>`;
+        container.appendChild(div);
+    }
+}
+
+async function mintNFT() {
+    if(!nftContract || !userAccount){ alert('الرجاء الاتصال بالمحفظة أولاً'); return; }
+    try{
+        await nftContract.methods.mintNFT().send({from:userAccount});
+        alert('تم Mint NFT جديد');
+        renderNFTs();
+    }catch(err){ alert('خطأ في عملية Mint NFT'); }
+}
+
+// لعبة تفاعلية تكسب رموزًا
+async function playGame() {
+    if(!tokenContract || !userAccount){ alert('الرجاء الاتصال بالمحفظة أولاً'); return; }
+    const win = Math.random()<0.5;
+    const resultText = win ? 'مبروك! ربحت 5 USNT' : 'حظًا أوفر في المرة القادمة!';
+    document.getElementById('game-result').innerText = resultText;
+    if(win){
+        try{
+            await tokenContract.methods.mint(userAccount, web3.utils.toWei('5','ether')).send({from:userAccount});
+            updateBalance();
+        }catch(err){ alert('خطأ في إضافة المكافأة'); }
+    }
+}
+</script>
+
+</body>
+</html>

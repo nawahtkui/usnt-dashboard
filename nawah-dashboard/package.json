@@ -1,0 +1,1 @@
+{"name":"nawah-dashboard","version":"1.0.0","private":true,"dependencies":{"ethers":"^6.15.0","react":"^18.3.1","react-dom":"^18.3.1","react-scripts":"^5.0.1","react-toastify":"^11.0.5"},"scripts":{"start":"react-scripts start","build":"react-scripts build"},"devDependencies":{"hardhat":"^3.0.6"},"type":"module"}
